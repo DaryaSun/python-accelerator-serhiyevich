@@ -1,22 +1,25 @@
-# Project: [Project Name]
+# Project: Epic-01 Identity Service
 
-[2-3 sentence core purpose - will be filled by first task]
+Layered FastAPI JSON API. TASK-001 builds the walking skeleton: login, JWT, `/me`, role gate.
 
 ## Specs Index
 
 | File | Purpose | Depends On | Last Updated |
 |------|---------|------------|--------------|
-| architect-architecture.md | System design, components, data flow | - | - |
-| api-designer-spec.md | Endpoints, schemas, authentication | architect-architecture | - |
+| architect-architecture.md | System design, components, data flow | - | 2026-11-10 |
+| api-designer-spec.md | Endpoints, schemas, authentication | architect-architecture | 2026-11-10 |
 | docs-generator-implementation.md | Build process, deployment, tooling | - | - |
 
 ## Key Decisions
 
-[Will be populated by architect agent as decisions are made]
+- Layering: `Task/Epics/00_Backend_Conventions.md` §2 (api → services → repositories → models; all → core)
+- Services depend on repository Protocols (fakes in tests, no Postgres in the test run)
+- Auth: JWT access token (HS256, 15 min) + argon2id; `Principal` frozen dataclass
+- Errors: `core/errors.py` domain exceptions → one handler → `{"error": {code, message, details}}`
 
 ## Tech Stack
 
-[Will be populated by skills as project grows]
+Python 3.12, uv, FastAPI, Pydantic v2 + pydantic-settings, SQLAlchemy 2.0 async (asyncpg), Alembic, PostgreSQL 16, pyjwt, argon2-cffi, uuid6, ruff, mypy, pytest + pytest-asyncio + httpx
 
 ---
 
